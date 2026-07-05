@@ -424,21 +424,27 @@ projectForm.addEventListener("submit", async (e) => {
 
         }
 
-        Swal.fire({
-            icon: "success",
-            title: "Success!",
-            text: "Project Added Successfully",
-            timer: 1800,
-            showConfirmButton: false
-        });
+        if (editingProjectId) {
 
-        Swal.fire({
-            icon: "success",
-            title: "Updated!",
-            text: "Project Updated Successfully",
-            timer: 1800,
-            showConfirmButton: false
-        });
+            Swal.fire({
+                icon: "success",
+                title: "Updated!",
+                text: "Project Updated Successfully",
+                timer: 1800,
+                showConfirmButton: false
+            });
+
+        } else {
+
+            Swal.fire({
+                icon: "success",
+                title: "Success!",
+                text: "Project Added Successfully",
+                timer: 1800,
+                showConfirmButton: false
+            });
+
+        }
 
         projectForm.reset();
         document.getElementById("existingImage").value = "";

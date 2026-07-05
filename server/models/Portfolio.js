@@ -47,19 +47,30 @@ const portfolioSchema = new mongoose.Schema({
         default: ""
     },
 
-    email:String,
+    mobile: {
+        type: String,
+        default: ""
+    },
 
-    mobile:String,
+    location: {
+        type: String,
+        default: ""
+    },
 
-    location:String,
+    github: {
+        type: String,
+        default: ""
+    },
 
-    github:String,
+    linkedin: {
+        type: String,
+        default: ""
+    },
 
-    linkedin:String,
-
-    instagram:String,
-
-    resume:String
+    resume: {
+        type: String,
+        default: ""
+    },
 
 });
 
