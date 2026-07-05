@@ -11,7 +11,7 @@ loginForm.addEventListener("submit", async (e) => {
     try{
 
         const response = await fetch(
-            "http://localhost:5000/api/admin/login",
+            "http://personal-portfolio-website-923p.onrender.com/api/admin/login",
             {
 
                 method:"POST",
