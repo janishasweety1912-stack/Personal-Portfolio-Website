@@ -614,47 +614,21 @@ async function loadProfile() {
     try {
 
         const response = await fetch(
-
             "https://personal-portfolio-website-923p.onrender.com/api/admin/profile",
-
             {
-
                 headers: {
-
                     Authorization: `Bearer ${token}`
-
                 }
-
             }
-
         );
 
         const admin = await response.json();
-        console.log(admin);
 
-        document.getElementById("profileUsername").textContent = admin.username;
-        const profileImage = document.getElementById("profileImage");
+        alert(JSON.stringify(admin));
 
-        if (admin.profileImage) {
+    } catch (error) {
 
-            profileImage.src =
-                `https://personal-portfolio-website-923p.onrender.com/${admin.profileImage}`;
-
-        } else {
-
-            profileImage.src =
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(admin.username)}&background=B89C8E&color=fff&size=200`;
-
-        }
-        document.getElementById("profileEmail").textContent = admin.email;
-
-        document.getElementById("newUsername").value = admin.username;
-
-    }
-
-    catch (error) {
-
-        console.log(error);
+        alert(error.message);
 
     }
 
