@@ -638,6 +638,10 @@ async function loadProfile() {
 
             profileImage.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(admin.username)}&background=B89C8E&color=fff&size=200`;
 
+        }else {
+
+            profileImage.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(admin.username)}&background=B89C8E&color=fff&size=200`;
+
         }
 
         document.getElementById("profileEmail").textContent = admin.email;
