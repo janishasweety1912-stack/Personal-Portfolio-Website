@@ -631,14 +631,18 @@ async function loadProfile() {
 
         const admin = await response.json();
 
-        document.getElementById("profileUsername").textContent =
-            admin.username;
+        document.getElementById("profileUsername").textContent = admin.username;
+        const profileImage = document.getElementById("profileImage");
 
-        document.getElementById("profileEmail").textContent =
-            admin.email;
+        if (!admin.profileImage) {
 
-        document.getElementById("newUsername").value =
-            admin.username;
+            profileImage.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(admin.username)}&background=B89C8E&color=fff&size=200`;
+
+        }
+
+        document.getElementById("profileEmail").textContent = admin.email;
+
+        document.getElementById("newUsername").value = admin.username;
 
     }
 
