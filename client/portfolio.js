@@ -7,7 +7,7 @@ async function loadPortfolio() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/portfolio"
+            "https://personal-portfolio-website-923p.onrender.com/api/portfolio"
         );
 
         if (!response.ok) {

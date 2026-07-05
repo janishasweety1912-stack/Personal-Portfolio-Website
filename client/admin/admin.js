@@ -92,7 +92,7 @@ async function loadContacts() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/contact"
+            "https://personal-portfolio-website-923p.onrender.com/api/contact"
         );
 
         const contacts = await response.json();
@@ -206,7 +206,7 @@ async function deleteContact(id) {
 
         await fetch(
 
-            `http://localhost:5000/api/contact/${id}`,
+            `https://personal-portfolio-website-923p.onrender.com/api/contact/${id}`,
 
             {
 
@@ -238,7 +238,7 @@ async function loadProjects() {
 
         const response = await fetch(
 
-            "http://localhost:5000/api/projects"
+            "https://personal-portfolio-website-923p.onrender.com/api/projects"
 
         );
 
@@ -258,7 +258,7 @@ async function loadProjects() {
             <div class="project-card">
 
                 <img
-                    src="http://localhost:5000/${project.image}"
+                    src="https://personal-portfolio-website-923p.onrender.com/${project.image}"
                     class="project-image"
                     alt="${project.title}">
 
@@ -348,7 +348,7 @@ projectForm.addEventListener("submit", async (e) => {
 
         const uploadResponse = await fetch(
 
-            "http://localhost:5000/api/projects/upload",
+            "https://personal-portfolio-website-923p.onrender.com/api/projects/upload",
 
             {
 
@@ -391,8 +391,8 @@ projectForm.addEventListener("submit", async (e) => {
     };
 
     const url = editingProjectId
-        ? `http://localhost:5000/api/projects/${editingProjectId}`
-        : "http://localhost:5000/api/projects";
+        ? `https://personal-portfolio-website-923p.onrender.com/api/projects/${editingProjectId}`
+        : "https://personal-portfolio-website-923p.onrender.com/api/projects";
 
     const method = editingProjectId
         ? "PUT"
@@ -529,7 +529,7 @@ async function deleteProject(id) {
 
         const response = await fetch(
 
-            `http://localhost:5000/api/projects/${id}`,
+            `https://personal-portfolio-website-923p.onrender.com/api/projects/${id}`,
 
             {
 
@@ -609,7 +609,7 @@ async function loadProfile() {
 
         const response = await fetch(
 
-            "http://localhost:5000/api/admin/profile",
+            "https://personal-portfolio-website-923p.onrender.com/api/admin/profile",
 
             {
 
@@ -653,7 +653,7 @@ async function loadProfile() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/admin/profile",
+            "https://personal-portfolio-website-923p.onrender.com/api/admin/profile",
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -672,7 +672,7 @@ async function loadProfile() {
         if(admin.profileImage){
 
             document.getElementById("profileImage").src =
-                `http://localhost:5000/${admin.profileImage}`;
+                `https://personal-portfolio-website-923p.onrender.com/${admin.profileImage}`;
 
         }
         document.getElementById("newUsername").value = admin.username;
@@ -711,7 +711,7 @@ async function loadPortfolio() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/portfolio"
+            "https://personal-portfolio-website-923p.onrender.com/api/portfolio"
         );
 
         const data = await response.json();
@@ -798,7 +798,7 @@ document.getElementById("portfolioForm")
 
         const response = await fetch(
 
-            "http://localhost:5000/api/portfolio",
+            "https://personal-portfolio-website-923p.onrender.com/api/portfolio",
 
             {
 

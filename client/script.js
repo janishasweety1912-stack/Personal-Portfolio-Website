@@ -95,7 +95,7 @@ if (contactForm) {
 
         try {
 
-            const response = await fetch("http://localhost:5000/api/contact", {
+            const response = await fetch("https://personal-portfolio-website-923p.onrender.com/api/contact", {
 
                 method: "POST",
 
@@ -203,7 +203,7 @@ async function loadProjects() {
 
     try {
 
-        const response = await fetch("http://localhost:5000/api/projects");
+        const response = await fetch("https://personal-portfolio-website-923p.onrender.com/api/projects");
         const projects = await response.json();
 
         const projectsContainer = document.getElementById("projects-container");
