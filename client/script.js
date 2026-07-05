@@ -217,7 +217,7 @@ async function loadProjects() {
                 <div class="project-card">
 
                     <div class="project-img">
-                        <img src="http://localhost:5000/${project.image}" alt="${project.title}">
+                        <img src="https://personal-portfolio-website-923p.onrender.com/${project.image}" alt="${project.title}">
                     </div>
 
                     <div class="project-content">
