@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio Website</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header>
+        <a href="#" class="logo">Portfolio</a>
+
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home" class="active">🏠 Home</a></li>
+            <li><a href="#about">👩‍💻 About</a></li>
+            <li><a href="#education">🎓 Education</a></li>
+            <li><a href="#skills">🛠 Skills</a></li>
+            <li><a href="#projects">📂 Projects</a></li>
+            <li><a href="#experience">💼 Experience</a></li>
+            <li><a href="#certifications">📜 Certifications</a></li>
+            <li><a href="#achievements">🏆 Achievements</a></li>
+            <li><a href="#resume">📄 Resume</a></li>
+            <li><a href="#contact">📞 Contact</a></li>
+        </ul>
+</header>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="home-content">
+            <h1>Hi, I'm <span id="heroName">Loading...</span></h1>
+            <p id="heroRole">Loading...</p>
+            <br>
+            <h4 id="heroDescription">Loading...</h4>
+            <br>
+            <h4 id="heroDescription2">Loading...</h4>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i> View My Project
+                </a>
+                <a href="#resume" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-envelope"></i> Contact Me
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <div class="about-img">
+                <!-- Replace src with your image URL -->
+                <img src="images/img.img.jpeg" alt="Profile Picture">
+            </div>
+            <div class="about-text">
+                <p id="aboutText">Loading...</p>
+                <br>
+                <p id="aboutText2">Loading...</p>
+                <br>
+                <p id="aboutText3">Loading...</p>
+                <br>
+                <p id="aboutText4">Loading...</p>
+            </div>
+        </div>
+    </section>
+
+    <!--Education-->
+    <section id="education">
+        <h2 class="section-title">Education</h2>
+
+        <div class="education-item">
+            <h3>Bachelor of Engineering in Computer Science</h3>
+            <h4>Kings Engineering College</h4>
+            <h5>Irungattukottai, Sriperumbudur</h5>
+            <p>An Autonomous Institution affiliated to Anna University</p>
+            <span>2023 - Present | CGPA: 8.1 (Till 5th Semester)</span>
+        </div>
+
+        <div class="education-item">
+            <h3>Higher Secondary Certificate (HSC)</h3>
+            <h4>R.C.M. Higher Secondary School</h4>
+            <h5>Avadi, Chennai</h5>
+            <span>2023 | Percentage: 66.66%</span>
+        </div>
+
+        <div class="education-item">
+            <h3>Secondary School Leaving Certificate (SSLC)</h3>
+            <h4>R.C.M. Matriculation School</h4>
+            <h5>Avadi, Chennai</h5>
+            <span>2021 | All Pass (COVID-19 Batch)</span>
+        </div>
+
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">My Skills</h2>
+
+        <!-- Category Tabs -->
+        <div class="skills-tabs">
+            <button class="tab-btn active" data-tab="all"><i class="fas fa-th-large"></i>All</button>
+            <button class="tab-btn" data-tab="languages"><i class="fas fa-code"></i>Languages</button>
+            <button class="tab-btn" data-tab="frontend"><i class="fas fa-desktop"></i>Frontend</button>
+            <button class="tab-btn" data-tab="backend"><i class="fas fa-server"></i>Backend</button>
+            <button class="tab-btn" data-tab="database"><i class="fas fa-database"></i>Database</button>
+            <button class="tab-btn" data-tab="tools"><i class="fas fa-tools"></i>Tools</button>
+        </div>
+
+        <!-- Languages -->
+        <div class="skills-content active" id="languages">
+            <div class="skills-grid">
+                <div class="skill-item" onclick="showSkill('java')">
+                    <i class="fa-brands fa-java"></i>
+                    <span>Java</span>
+                    <span class="tooltip-text">Backend & OOP</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:80%"></div>
+                    </div>
+                </div>
+                <div class="skill-item" onclick="showSkill('python')">
+                    <i class="fa-brands fa-python"></i>
+                    <span>Python</span>
+                    <span class="tooltip-text">Automation & Web Apps</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:70%"></div>
+                    </div>
+                </div>
+                <div class="skill-item" onclick="showSkill('c')">
+                    <i class="devicon-c-plain"></i>
+                    <span>C</span>
+                    <span class="tooltip-text">Low-level & Algorithms</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:75%"></div>
+                    </div>
+                </div>
+                <div class="skill-item" onclick="showSkill('cpp')">
+                    <i class="devicon-cplusplus-plain"></i>
+                    <span>C++</span>
+                    <span class="tooltip-text">OOP & Optimization</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:65%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frontend -->
+        <div class="skills-content" id="frontend">
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fa-brands fa-html5"></i>
+                    <span>HTML</span>
+                    <span class="tooltip-text">Structure web pages</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <i class="fa-brands fa-css3-alt"></i>
+                    <span>CSS</span>
+                    <span class="tooltip-text">Style & Responsive layouts</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:85%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <i class="fa-brands fa-js"></i>
+                    <span>JavaScript</span>
+                    <span class="tooltip-text">Dynamic UI & Interactions</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:75%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <i class="fa-brands fa-react"></i>
+                    <span>React</span>
+                    <span class="tooltip-text">UI components & SPA</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:70%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="skills-content" id="backend">
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fa-brands fa-node-js"></i>
+                    <span>Node.js</span>
+                    <span class="tooltip-text">Backend servers & APIs</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:70%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <i class="fa-solid fa-server"></i>
+                    <span>Express.js</span>
+                    <span class="tooltip-text">RESTful APIs</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:65%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database -->
+        <div class="skills-content" id="database">
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fa-solid fa-database"></i>
+                    <span>MySQL</span>
+                    <span class="tooltip-text">Relational DB</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:75%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <i class="devicon-mongodb-plain"></i>
+                    <span>MongoDB</span>
+                    <span class="tooltip-text">NoSQL DB</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:70%"></div>                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skills-content" id="tools">
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fa-brands fa-git-alt"></i>
+                    <span>Git</span>
+                    <span class="tooltip-text">Version Control</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:75%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <i class="fa-brands fa-github"></i>
+                    <span>Git-Hub</span>
+                    <span class="tooltip-text">Code Repository</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:85%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <i class="devicon-vscode-plain"></i>
+                    <span>VS Code</span>
+                    <span class="tooltip-text">IDE</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <i class="fa-brands fa-figma"></i>
+                    <span>Figma</span>
+                    <span class="tooltip-text">UI/UX Design</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:65%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-container" id="projects-container"></div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <h3>InternPe</h3>
+                <h4>Web Development Intern</h4>
+                <div class="timeline-date">29th Dec 2025 - 11th Jan 2026</div>
+                <ul>
+                    <li>Created responsive web pages</li>
+                    <li>Implemented HTML, CSS layouts</li>
+                    <li>Added JavaScript interactivity</li>
+                </ul>
+                <p>Tech Stack: HTML, CSS, JS</p>
+                <a href="pdf/Interpe-Internship.img.png" target="_blank" class="certificate-btn">
+                    <i class="fas fa-file-pdf"></i> View Certificate
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <h2 class="section-title">Certifications</h2>
+
+        <!-- Category 1 : Programming Languages -->
+        <h3 class="cert-category">
+            <i class="fas fa-code"></i> Programming Language Certifications
+        </h3>
+        <div class="cert-container">
+
+            <div class="cert-item">
+                <div class="cert-org">Language</div>
+                <h3>Python Programming</h3>
+                <h4><i class="fas fa-city"></i>Cybernaut</h4>
+                <h4><i class="fas fa-chart-bar"></i>Score: 95%</h4>
+                <p>Completed Python programming course covering core concepts and problem solving.</p>
+                <a href="pdf/Cybernaut-python.img.pdf" target="_blank" class="cert-btn">
+                    <i class="fas fa-eye"></i> View Certificate
+                </a>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-org">Language</div>
+                <h3>Java Programming</h3>
+                <h4><i class="fas fa-city"></i>Cybernaut</h4>
+                <h4><i class="fas fa-chart-bar"></i>Score: 79%</h4>
+                <p>Learned object-oriented programming and application development using Java.</p>
+                <a href="pdf/Cybernaut-java.img.pdf" target="_blank" class="cert-btn">
+                    <i class="fas fa-eye"></i> View Certificate
+                </a>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-org">Language</div>
+                <h3>C++ Programming</h3>
+                <h4><i class="fas fa-city"></i>Cybernaut</h4>
+                <h4><i class="fas fa-chart-bar"></i>Score: 88%</h4>
+                <p>Studied fundamental programming concepts, memory management, and OOP.</p>
+                <a href="pdf/Cybernaut-cpp.img.pdf" target="_blank" class="cert-btn">
+                    <i class="fas fa-eye"></i> View Certificate
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- Category 2 : Courses -->
+        <h3 class="cert-category">
+            <i class="fas fa-laptop-code"></i>Professional Courses Certifications
+        </h3>
+        <div class="cert-container">
+
+            <div class="cert-item">
+                <div class="cert-org">course</div>
+                <h3>Full Stack Development</h3>
+                <h4><i class="fas fa-building"></i>NoviTech</h4>
+                <h4><i class="fas fa-clock"></i> 30 Days</h4>
+                <p>Completed hands-on training on frontend and backend development technologies.</p>
+                <a href="pdf/Full-Stack_Course.img.pdf" target="_blank" class="cert-btn">
+                    <i class="fas fa-eye"></i> View Certificate
+                </a>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-org">Course</div>
+                <h3>UI / UX Design</h3>
+                <h4><i class="fas fa-building"></i>NoviTech</h4>
+                <h4><i class="fas fa-clock"></i> 30 Days</h4>
+                <p>Learned user interface design principles and user experience strategies.</p>
+                <a href="pdf/UIUX_Course.img.pdf" target="_blank" class="cert-btn">
+                    <i class="fas fa-eye"></i> View Certificate
+                </a>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-org">Course</div>
+                <h3>Data Analytics</h3>
+                <h4><i class="fas fa-building"></i>NoviTech</h4>
+                <h4><i class="fas fa-clock"></i> 30 Days</h4>
+                <p>Introduced to data analysis techniques, visualization, and basic analytics tools.</p>
+                <a href="pdf/Data-Analytics_Course.img.pdf" target="_blank" class="cert-btn">
+                    <i class="fas fa-eye"></i> View Certificate
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- Category 3 : Workshops -->
+        <h3 class="cert-category">
+            <i class="fas fa-chalkboard-teacher"></i>Workshops Certifications
+        </h3>
+        <div class="cert-container">
+
+            <div class="cert-item">
+                <div class="cert-org">Workshop</div>
+                <h3>"BlackOps" - A Cybersecurity Workshop</h3>
+                <h4><i class="fas fa-university"></i>King's Engineering College</h4>
+                <p>Attended hands-on Cyber-Security training, gaining skills in network security, and incident response.</p>
+                <a href="pdf/BlackOps_Workshop.img.pdf" target="_blank" class="cert-btn">
+                    <i class="fas fa-eye"></i> View Certificate
+                </a>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-org">Workshop</div>
+                <h3>UI/UX Design: An Industry Perspective</h3>
+                <h4><i class="fas fa-university"></i>King's Engineering College</h4>
+                <p>Gained Industry perspective on UI/UX, focusing on user-friendly design, testing, and prototyping.</p>
+                <a href="pdf/UIUX_Workshop.img.pdf" target="_blank" class="cert-btn">
+                    <i class="fas fa-eye"></i> View certificate
+                </a>
+            </div>
+
+            <div class="cert-item">
+                <div class="cert-org">Workshop</div>
+                <h3>Productivity with Macros - Making Excel Work for You</h3>
+                <h4><i class="fas fa-building"></i>Novitech</h4>
+                <p>Learned Excel macros to automate tasks, streamline workflows, and boost productivity.</p>
+                <a href="pdf/Macros_Workshop.img.pdf" target="_blank" class="cert-btn">
+                    <i class="fas fa-eye"></i> View Certificate
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements">
+
+        <h2 class="section-title">Achievements</h2>
+
+        <div class="achievement-container">
+
+            <div class="achievement-item">
+                <i class="fas fa-star"></i>
+                <h3>HackerRank 5★ in Java</h3>
+                <p>Achieved a 5-star rating in Java on HackerRank by solving coding challenges and demonstrating strong programming fundamentals.</p>
+            </div>
+
+            <div class="achievement-item">
+                <i class="fas fa-star"></i>
+                <h3>HackerRank 5★ in C++</h3>
+                <p>Earned a 5-star rating in C++ through consistent problem solving and algorithmic challenges.</p>
+            </div>
+
+            <div class="achievement-item">
+                <i class="fas fa-star"></i>
+                <h3>HackerRank 5★ in Python</h3>
+                <p>Obtained a 5-star rating in Python by completing coding exercises and competitive programming tasks.</p>
+            </div>
+
+        </div>
+        <div class="achievement-profile">
+
+            <i class="fab fa-hackerrank"></i>
+
+            <p>Verify my coding achievements on my HackerRank profile</p>
+            <div class="achievement-btn">
+
+                <a href="https://www.hackerrank.com/profile/j_anishasweety11" target="_blank">View HackerRank Profile
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume">
+
+        <h2 class="section-title">Resume</h2>
+
+        <div class="resume-container">
+
+            <i class="fas fa-file-alt"></i>
+
+            <p>
+                View or download my latest resume that highlights my education, skills, projects, and internship experience.
+            </p>
+
+            <div class="resume-buttons">
+
+                <a href="pdf/Resume.img.pdf" target="_blank" class="btn-view">
+                    <i class="fas fa-eye"></i> View Resume
+                </a>
+
+                <a href="pdf/Resume.img.pdf" download class="btn-download">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Contact Section -->
+
+    <section id="contact">
+        <h2 class="section-title">Contact Me</h2>
+        <div class="contact-container">
+
+            <!-- Contact Information -->
+            <div class="contact-info">
+
+                <p><i class="fas fa-envelope"></i> j.anishasweety1912@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +91 94454 39514</p>
+                <p><i class="fas fa-map-marker-alt"></i> Chennai, India</p>
+
+                <p class="contact-note">
+                    Have a question or opportunity? I would love to hear from you.
+                </p>
+
+            </div>
+
+            <!-- Contact Form -->
+            <form class="contact-form" id="contact-form">
+                <div class="form-row">
+                    <input type="text" id="contact-name" name="name" placeholder="Your Name" required>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" id="mobile" name="mobile" placeholder="Your Mobile Number" required>
+                    <select id="purpose" name="purpose" required>
+                        <option value="">Purpose of Contact</option>
+                        <option value="Internship Opportunity">Internship Opportunity</option>
+                        <option value="Project Collaboration">Project Collaboration</option>
+                        <option value="Freelance Work">Freelance Work</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                    </select>
+                </div>
+                <textarea id="message" name="message" rows="6" placeholder="Your Message" required></textarea>
+                <button type="submit">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer id="footer">
+
+        <div class="footer-container">
+
+            <p class="footer-text">© 2026 Anisha Sweety J | All Rights Reserved</p>
+
+            <div class="footer-social">
+
+                <a href="https://github.com/janishasweety1912-stack"><i class="fab fa-github"></i></a>
+
+                <a href="https://www.linkedin.com/in/anisha-sweety-b0a1a8356/"><i class="fab fa-linkedin"></i></a>
+
+                <a href="https://www.hackerrank.com/profile/j_anishasweety11"><i class="fab fa-hackerrank"></i></a>
+
+            </div>
+
+            <a href="#home" class="back-top">
+                <i class="fas fa-arrow-up"></i>
+            </a>
+
+        </div>
+
+    </footer>
+
+    <!-- Link to JS -->
+    <script src="script.js"></script>
+    <script src="portfolio.js"></script>
+</body>
+</html>

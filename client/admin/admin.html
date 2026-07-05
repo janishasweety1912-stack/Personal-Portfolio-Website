@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>Portfolio</h2>
+        <ul>
+            <li class="menu-item active" data-page="messages">
+                <i class="fa-solid fa-envelope"></i>
+                Messages
+            </li>
+            <li class="menu-item" data-page="portfolio">
+                <i class="fa-solid fa-user-gear"></i>
+                Portfolio Settings
+            </li>
+            <li class="menu-item" data-page="projects">
+                <i class="fa-solid fa-folder"></i>
+                Projects
+            </li>
+            <li class="menu-item" data-page="profile">
+                <i class="fa-solid fa-user"></i>
+                Profile
+            </li>
+            <li class="menu-item">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+        <div id="messagesPage">
+            <div class="top-bar">
+                <h1>Contact Messages</h1>
+                <input type="text" id="search" placeholder="Search by Name...">
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="card">
+                    <h2 id="totalMessages">0</h2>
+                    <p>Total Messages</p>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Purpose</th>
+                            <th>Message</th>
+                            <th>Received</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="projectsPage" style="display:none;">
+            <div class="top-bar">
+                <h1>Projects</h1>
+                <button id="addProjectBtn">
+                    <i class="fa-solid fa-plus"></i>
+                    Add Project
+                </button>
+            </div>
+            <form id="projectForm" style="display:none;">
+                <input type="hidden" id="existingImage">
+                <input type="text" id="title" placeholder="Project Title" required>
+                <textarea id="description" placeholder="Project Description" required></textarea>
+                <label>Project Image</label>
+                <input type="file" id="image" accept="image/*">
+                <input type="text" id="technologies" placeholder="HTML,CSS,JavaScript" required>
+                <input type="text" id="demoLink" placeholder="Demo Link" required>
+                <input type="text" id="githubLink" placeholder="GitHub Link">
+                <button type="submit">
+                    Save Project
+                </button>
+            </form>
+            <div id="projectsTable"></div>
+        </div>
+
+        <div id="portfolioPage" style="display:none;">
+            <div class="top-bar">
+                <h1>Portfolio Settings</h1>
+            </div>
+            <form id="portfolioForm" class="portfolio-form">
+                <input type="text"id="portfolioName" placeholder="Full Name">
+                <input type="text" id="portfolioRole" placeholder="Role">
+                <textarea id="heroDescription" placeholder="Hero Description"></textarea>
+                <textarea id="heroDescription2" placeholder="Second Hero Description"></textarea>
+                <textarea id="portfolioAbout" placeholder="About Paragraph 1"></textarea>
+
+                <textarea id="portfolioAbout2" placeholder="About Paragraph 2"></textarea>
+
+                <textarea id="portfolioAbout3" placeholder="About Paragraph 3"></textarea>
+
+                <textarea id="portfolioAbout4" placeholder="About Paragraph 4"></textarea>
+                <input type="email" id="portfolioEmail" placeholder="Email">
+                <input type="text" id="portfolioMobile" placeholder="Mobile Number">
+                <input type="text" id="portfolioLocation" placeholder="Location">
+                <input type="text" id="portfolioGithub" placeholder="GitHub Link">
+                <input type="text" id="portfolioLinkedin" placeholder="LinkedIn Link">
+                <input type="text" id="portfolioResume" placeholder="Resume Path (uploads/resume.pdf)">
+                <button type="submit">
+                    Save Portfolio
+                </button>
+            </form>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profilePage" style="display:none;">
+            <h1>My Profile</h1>
+            <div class="profile-card">
+                <img id="profileImage" src="https://ui-avatars.com/api/?name=Admin&background=B89C8E&color=fff&size=200" class="profile-image">
+                <label for="profileImageInput" class="upload-btn">
+                    <i class="fa-solid fa-camera"></i>
+                    Change Profile Picture
+                </label>
+                <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+                <h2 id="profileUsername">Loading...</h2>
+                <p id="profileEmail">Loading...</p>
+                <form id="profileForm">
+                    <input type="text" id="newUsername" placeholder="New Username">
+                    <input type="password" id="currentPassword" placeholder="Current Password">
+                    <input type="password" id="newPassword" placeholder="New Password">
+                    <button type="submit">
+                        Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>
