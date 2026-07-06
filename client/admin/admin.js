@@ -583,85 +583,6 @@ async function deleteProject(id) {
 
 }
 
-// =========================
-// LOGOUT
-// =========================
-
-const logoutBtn = document.querySelector(".fa-right-from-bracket")?.parentElement;
-
-if (logoutBtn) {
-
-    logoutBtn.addEventListener("click", () => {
-
-        const confirmLogout = confirm("Logout from Admin Panel?");
-
-        if (!confirmLogout) return;
-
-        localStorage.removeItem("token");
-
-        window.location.href = "login.html";
-
-    });
-
-}
-
-// ======================
-// LOAD PROFILE
-// ======================
-
-async function loadProfile() {
-
-    try {
-
-        const response = await fetch(
-
-            "https://personal-portfolio-website-923p.onrender.com/api/admin/profile",
-
-            {
-
-                headers: {
-
-                    Authorization: `Bearer ${token}`
-
-                }
-
-            }
-
-        );
-
-        const admin = await response.json();
-        console.log(admin);
-
-        document.getElementById("profileUsername").textContent = admin.username;
-        const profileImage = document.getElementById("profileImage");
-        alert(admin.username);
-        alert(profileImage.src);
-
-        if (admin.profileImage) {
-
-            profileImage.src =
-                `https://personal-portfolio-website-923p.onrender.com/${admin.profileImage}`;
-
-        } else {
-
-            profileImage.src =
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(admin.username)}&background=B89C8E&color=fff&size=200`;
-
-        }
-        document.getElementById("profileEmail").textContent = admin.email;
-
-        document.getElementById("newUsername").value = admin.username;
-
-    }
-
-    catch (error) {
-
-        console.log(error);
-
-    }
-
-}
-
 // ======================
 // LOAD ADMIN PROFILE
 // ======================
@@ -686,14 +607,24 @@ async function loadProfile() {
         }
 
         document.getElementById("profileUsername").textContent = admin.username;
-        document.getElementById("profileEmail").textContent = admin.email;
-        if(admin.profileImage){
 
-            document.getElementById("profileImage").src =
+        document.getElementById("profileEmail").textContent = "";
+
+        document.getElementById("newUsername").value = admin.username;
+
+        const profileImage = document.getElementById("profileImage");
+
+        if (admin.profileImage) {
+
+            profileImage.src =
                 `https://personal-portfolio-website-923p.onrender.com/${admin.profileImage}`;
 
+        } else {
+
+            profileImage.src =
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(admin.username)}&background=B89C8E&color=fff&size=200`;
+
         }
-        document.getElementById("newUsername").value = admin.username;
 
     }
 
@@ -705,71 +636,28 @@ async function loadProfile() {
 
 }
 
-document
-.getElementById("profileImageInput")
-.addEventListener("change", function(){
-
-    const file = this.files[0];
-
-    if(file){
-
-        document.getElementById("profileImage").src =
-            URL.createObjectURL(file);
-
-    }
-
-});
-
 // =========================
-// LOAD PORTFOLIO
+// LOGOUT
 // =========================
 
-async function loadPortfolio() {
+const logoutBtn = document.querySelector(".fa-right-from-bracket")?.parentElement;
 
-    try {
+if (logoutBtn) {
 
-        const response = await fetch(
-            "https://personal-portfolio-website-923p.onrender.com/api/portfolio"
-        );
+    logoutBtn.addEventListener("click", () => {
 
-        const data = await response.json();
+        const confirmLogout = confirm("Logout from Admin Panel?");
 
-        document.getElementById("portfolioName").value = data.name || "";
+        if (!confirmLogout) return;
 
-        document.getElementById("portfolioRole").value = data.role || "";
-        document.getElementById("heroDescription").value = data.heroDescription || "";
+        localStorage.removeItem("token");
 
-        document.getElementById("heroDescription2").value = data.heroDescription2 || "";
+        window.location.href = "login.html";
 
-        document.getElementById("portfolioAbout").value = data.about || "";
-
-        document.getElementById("portfolioAbout2").value = data.about2 || "";
-
-        document.getElementById("portfolioAbout3").value = data.about3 || "";
-
-        document.getElementById("portfolioAbout4").value = data.about4 || "";
-
-        document.getElementById("portfolioEmail").value = data.email || "";
-
-        document.getElementById("portfolioMobile").value = data.mobile || "";
-
-        document.getElementById("portfolioLocation").value = data.location || "";
-
-        document.getElementById("portfolioGithub").value = data.github || "";
-
-        document.getElementById("portfolioLinkedin").value = data.linkedin || "";
-
-        document.getElementById("portfolioResume").value = data.resume || "";
-
-    }
-
-    catch(error){
-
-        console.log(error);
-
-    }
+    });
 
 }
+
 
 // =========================
 // SAVE PORTFOLIO
