@@ -634,6 +634,8 @@ async function loadProfile() {
 
         document.getElementById("profileUsername").textContent = admin.username;
         const profileImage = document.getElementById("profileImage");
+        alert(admin.username);
+        alert(profileImage.src);
 
         if (admin.profileImage) {
 

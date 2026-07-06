@@ -44,29 +44,6 @@ const { loginAdmin } = require("../controllers/adminController");
 
 router.post("/login", loginAdmin);
 
-// ======================
-// GET PROFILE
-// ======================
-
-router.get("/profile", auth, async (req, res) => {
-
-    try {
-
-        const admin = await Admin.findById(req.admin.id).select("-password");
-
-        res.json(admin);
-
-    }
-
-    catch (error) {
-
-        res.status(500).json({
-            message: error.message
-        });
-
-    }
-
-});
 
 // ======================
 // GET ADMIN PROFILE
