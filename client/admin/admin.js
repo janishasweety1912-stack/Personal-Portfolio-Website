@@ -651,7 +651,7 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
         username: document.getElementById("newUsername").value.trim(),
 
         currentEmail: document.getElementById("currentEmail").value.trim(),
-        newEmail: document.getElementById("newtEmail").value.trim(),
+        newEmail: document.getElementById("newEmail").value.trim(),
 
         currentPassword: document.getElementById("currentPassword").value,
 
