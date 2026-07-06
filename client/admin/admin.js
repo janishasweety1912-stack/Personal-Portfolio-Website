@@ -611,6 +611,8 @@ async function loadProfile() {
         document.getElementById("profileEmail").textContent = admin.email || "";
 
         document.getElementById("newUsername").value = admin.username;
+        document.getElementById("currentEmail").value = admin.email || "";
+        document.getElementById("newEmail").value = "";
 
         const profileImage = document.getElementById("profileImage");
 
@@ -635,6 +637,81 @@ async function loadProfile() {
     }
 
 }
+
+// ======================
+// SAVE PROFILE
+// ======================
+
+document.getElementById("profileForm").addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const body = {
+
+        username: document.getElementById("newUsername").value.trim(),
+
+        currentEmail: document.getElementById("currentEmail").value.trim(),
+        newEmail: document.getElementById("newtEmail").value.trim(),
+
+        currentPassword: document.getElementById("currentPassword").value,
+
+        newPassword: document.getElementById("newPassword").value
+
+    };
+
+    try {
+
+        const response = await fetch(
+
+            "https://personal-portfolio-website-923p.onrender.com/api/admin/profile",
+
+            {
+
+                method: "PUT",
+
+                headers: {
+
+                    "Content-Type": "application/json",
+
+                    Authorization: `Bearer ${token}`
+
+                },
+
+                body: JSON.stringify(body)
+
+            }
+
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert(data.message);
+
+            return;
+
+        }
+
+        alert("Profile Updated Successfully");
+
+        loadProfile();
+
+        document.getElementById("currentPassword").value = "";
+
+        document.getElementById("newPassword").value = "";
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        alert("Unable to update profile");
+
+    }
+
+});
 
 // =========================
 // LOGOUT
@@ -703,9 +780,7 @@ async function loadPortfolio() {
 // =========================
 
 document.getElementById("portfolioForm")
-.addEventListener("submit", async function(e){
-
-    e.preventDefault();
+.addEventListener("submit", async function(e){e.preventDefault();
 
     const portfolio = {
 

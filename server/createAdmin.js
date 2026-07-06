@@ -26,7 +26,7 @@ async function createAdmin() {
 
             username: "Anisha Sweety J",
 
-            email: "anishasweety1912@example.com", // Change this to your real email
+            email: "j.anishasweety1912@gmail.com", 
 
             password: hashedPassword,
 
@@ -36,7 +36,7 @@ async function createAdmin() {
 
         console.log("✅ Admin Created Successfully");
         console.log("Username : Anisha Sweety J");
-        console.log("Email    : anishasweety@example.com");
+        console.log("Email    : j.anishasweety1912@gmail.com");
         console.log("Password : Jayakumar@1");
 
         process.exit();

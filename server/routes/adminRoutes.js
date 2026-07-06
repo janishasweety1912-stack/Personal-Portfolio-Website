@@ -118,5 +118,100 @@ router.post(
 
     }
 );
+// ======================
+// UPDATE ADMIN PROFILE
+// ======================
+
+router.put("/profile", auth, async (req, res) => {
+
+    try {
+
+        const admin = await Admin.findById(req.admin.id);
+
+        if (!admin) {
+
+            return res.status(404).json({
+                message: "Admin not found"
+            });
+
+        }
+
+        // Update Username
+        admin.username = req.body.username;
+
+        // Update Email only if a new email is entered
+        if (req.body.newEmail && req.body.newEmail.trim() !== "") {
+
+            if (req.body.currentEmail !== admin.email) {
+
+                return res.status(400).json({
+                    message: "Current email is incorrect"
+                });
+
+            }
+
+            // Check if another admin already uses this email
+            const existingEmail = await Admin.findOne({
+                email: req.body.newEmail
+            });
+
+            if (existingEmail && existingEmail._id.toString() !== admin._id.toString()) {
+
+                return res.status(400).json({
+                    message: "Email already exists"
+                });
+
+            }
+
+            admin.email = req.body.newEmail;
+
+        }
+
+        // Update Password only if entered
+        if (req.body.newPassword && req.body.newPassword.trim() !== "") {
+
+            const isMatch = await bcrypt.compare(
+                req.body.currentPassword,
+                admin.password
+            );
+
+            if (!isMatch) {
+
+                return res.status(400).json({
+                    message: "Current password is incorrect"
+                });
+
+            }
+
+            admin.password = await bcrypt.hash(
+                req.body.newPassword,
+                10
+            );
+
+        }
+
+        await admin.save();
+
+        res.json({
+
+            success: true,
+
+            message: "Profile updated successfully"
+
+        });
+
+    }
+
+    catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+});
 
 module.exports = router;
