@@ -608,7 +608,7 @@ async function loadProfile() {
 
         document.getElementById("profileUsername").textContent = admin.username;
 
-        document.getElementById("profileEmail").textContent = "";
+        document.getElementById("profileEmail").textContent = admin.email || "";
 
         document.getElementById("newUsername").value = admin.username;
 
