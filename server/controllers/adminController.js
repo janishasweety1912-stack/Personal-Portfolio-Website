@@ -7,7 +7,7 @@ const loginAdmin = async (req, res) => {
 
     try {
 
-        const { username, password } = req.body;
+        const { username, email, password } = req.body;
 
         // Check username
         const admin = await Admin.findOne({ username });
@@ -17,6 +17,18 @@ const loginAdmin = async (req, res) => {
             return res.status(401).json({
                 success: false,
                 message: "Invalid Username"
+            });
+
+        }
+
+        // Check Email
+        const admin = await Admin.findOne({ email });
+
+        if (!admin) {
+
+            return res.status(401).json({
+                success: false,
+                message: "Invalid Email"
             });
 
         }

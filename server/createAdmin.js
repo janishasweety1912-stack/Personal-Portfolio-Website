@@ -13,32 +13,40 @@ async function createAdmin() {
 
     try {
 
-        // Check if admin already exists
-        const existingAdmin = await Admin.findOne({ username: "Anisha Sweety J" });
-
-        if (existingAdmin) {
-            console.log("✅ Admin already exists");
-            process.exit();
-        }
+        // Delete old admin if it exists
+        await Admin.deleteOne({
+            username: "Anisha Sweety J"
+        });
 
         // Encrypt password
         const hashedPassword = await bcrypt.hash("Jayakumar@1", 10);
 
-        // Create admin
+        // Create new admin
         await Admin.create({
+
             username: "Anisha Sweety J",
-            password: hashedPassword
+
+            email: "anishasweety1912@example.com", // Change this to your real email
+
+            password: hashedPassword,
+
+            profileImage: ""
+
         });
 
         console.log("✅ Admin Created Successfully");
-        console.log("Username: Anisha Sweety J");
-        console.log("Password: Jayakumar@1");
+        console.log("Username : Anisha Sweety J");
+        console.log("Email    : anishasweety@example.com");
+        console.log("Password : Jayakumar@1");
 
         process.exit();
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.log(error);
+
         process.exit();
 
     }
