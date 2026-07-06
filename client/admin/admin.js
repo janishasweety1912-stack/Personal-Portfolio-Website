@@ -601,20 +601,33 @@ async function loadProfile() {
         );
 
         const admin = await response.json();
-        document.getElementById("portfolioName").value = admin.name || "";
-        document.getElementById("portfolioRole").value = admin.role || "";
-        document.getElementById("heroDescription").value = admin.heroDescription || "";
-        document.getElementById("heroDescription2").value = admin.heroDescription2 || "";
-        document.getElementById("portfolioAbout").value = admin.about || "";
-        document.getElementById("portfolioAbout2").value = admin.about2 || "";
-        document.getElementById("portfolioAbout3").value = admin.about3 || "";
-        document.getElementById("portfolioAbout4").value = admin.about4 || "";
-        document.getElementById("portfolioEmail").value = admin.email || "";
-        document.getElementById("portfolioMobile").value = admin.mobile || "";
-        document.getElementById("portfolioLocation").value = admin.location || "";
-        document.getElementById("portfolioGithub").value = admin.github || "";
-        document.getElementById("portfolioLinkedin").value = admin.linkedin || "";
-        document.getElementById("portfolioResume").value = admin.resume || "";
+        document.getElementById("portfolioName").value = portfolio.name || "";
+
+        document.getElementById("portfolioRole").value = portfolio.role || "";
+
+        document.getElementById("heroDescription").value = portfolio.heroDescription || "";
+
+        document.getElementById("heroDescription2").value = portfolio.heroDescription2 || "";
+
+        document.getElementById("portfolioAbout").value = portfolio.about || "";
+
+        document.getElementById("portfolioAbout2").value = portfolio.about2 || "";
+
+        document.getElementById("portfolioAbout3").value = portfolio.about3 || "";
+
+        document.getElementById("portfolioAbout4").value = portfolio.about4 || "";
+
+        document.getElementById("portfolioEmail").value = portfolio.email || "";
+
+        document.getElementById("portfolioMobile").value = portfolio.mobile || "";
+
+        document.getElementById("portfolioLocation").value = portfolio.location || "";
+
+        document.getElementById("portfolioGithub").value = portfolio.github || "";
+
+        document.getElementById("portfolioLinkedin").value = portfolio.linkedin || "";
+
+        document.getElementById("portfolioResume").value = portfolio.resume || "";
 
         if (!response.ok) {
             throw new Error(admin.message);
