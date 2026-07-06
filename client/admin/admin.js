@@ -614,7 +614,7 @@ async function loadProfile() {
 
         const profileImage = document.getElementById("profileImage");
 
-        if (admin.profileImage) {
+        if (admin.profileImage && admin.profileImage !== "") {
 
             profileImage.src =
                 `https://personal-portfolio-website-923p.onrender.com/${admin.profileImage}`;
@@ -776,6 +776,64 @@ document.getElementById("portfolioForm")
     catch(error){
 
         console.log(error);
+
+    }
+
+});
+
+// ======================
+// PROFILE IMAGE UPLOAD
+// ======================
+
+const profileImageInput = document.getElementById("profileImageInput");
+
+profileImageInput.addEventListener("change", async () => {
+
+    const file = profileImageInput.files[0];
+
+    if (!file) return;
+
+    const formData = new FormData();
+
+    formData.append("profileImage", file);
+
+    try {
+
+        const response = await fetch(
+            "https://personal-portfolio-website-923p.onrender.com/api/admin/upload-profile",
+            {
+                method: "POST",
+
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+
+                body: formData
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert(data.message);
+
+            return;
+
+        }
+
+        // Reload profile after upload
+        loadProfile();
+
+        alert("Profile picture updated successfully!");
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        alert("Unable to upload image");
 
     }
 

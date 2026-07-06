@@ -5,6 +5,8 @@ const Admin = require("../models/Admin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+const upload = require("../middleware/upload");
+
 // ======================
 // JWT AUTH MIDDLEWARE
 // ======================
@@ -76,5 +78,45 @@ router.get("/profile", auth, async (req, res) => {
     }
 
 });
+
+// ======================
+// UPLOAD PROFILE IMAGE
+// ======================
+
+router.post(
+    "/upload-profile",
+    auth,
+    upload.single("profileImage"),
+    async (req, res) => {
+
+        try {
+
+            const admin = await Admin.findById(req.admin.id);
+
+            if (!admin) {
+                return res.status(404).json({
+                    message: "Admin not found"
+                });
+            }
+
+            admin.profileImage = `uploads/${req.file.filename}`;
+
+            await admin.save();
+
+            res.json({
+                success: true,
+                profileImage: admin.profileImage
+            });
+
+        } catch (error) {
+
+            res.status(500).json({
+                message: error.message
+            });
+
+        }
+
+    }
+);
 
 module.exports = router;
