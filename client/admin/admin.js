@@ -647,16 +647,11 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const body = {
-
         username: document.getElementById("newUsername").value.trim(),
-
         currentEmail: document.getElementById("currentEmail").value.trim(),
         newEmail: document.getElementById("newEmail").value.trim(),
-
         currentPassword: document.getElementById("currentPassword").value,
-
         newPassword: document.getElementById("newPassword").value
-
     };
 
     try {
@@ -667,39 +662,45 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(body)
             }
         );
-        const data = await response.json();
-        console.log("Status:", response.status);
-        console.log("Response:", data);
-        if (!response.ok) {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: data.message
-            });
-            return;
+
+        // ❌ DON'T use response.json() immediately
+        const text = await response.text();
+
+        let data;
+
+        try {
+            data = JSON.parse(text);
+        } catch {
+            throw new Error("Backend returned HTML instead of JSON");
         }
+
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+
         Swal.fire({
             icon: "success",
             title: "Success",
             text: data.message
         });
-        loadProfile();
-    }
-    catch (error) {
 
-        console.error("Fetch Error:", error);
+        loadProfile();
+
+    } catch (err) {
 
         Swal.fire({
             icon: "error",
-            title: "Network Error",
-            text: error.message
+            title: "Error",
+            text: err.message
         });
+
     }
+
 });
 
 // =========================
@@ -867,11 +868,9 @@ profileImageInput.addEventListener("change", async () => {
             "https://personal-portfolio-website-923p.onrender.com/api/admin/upload-profile",
             {
                 method: "POST",
-
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
-
                 body: formData
             }
         );
@@ -879,25 +878,24 @@ profileImageInput.addEventListener("change", async () => {
         const data = await response.json();
 
         if (!response.ok) {
-
-            alert(data.message);
-
-            return;
-
+            throw new Error(data.message);
         }
 
-        // Reload profile after upload
+        Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Profile picture updated"
+        });
+
         loadProfile();
 
-        alert("Profile picture updated successfully!");
+    } catch (err) {
 
-    }
-
-    catch (error) {
-
-        console.log(error);
-
-        alert("Unable to upload image");
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: err.message
+        });
 
     }
 
