@@ -204,14 +204,16 @@ router.put("/profile", auth, async (req, res) => {
 
     catch (error) {
 
+        console.error("UPDATE PROFILE ERROR:");
+        console.error(error);
+
         res.status(500).json({
-
-            message: error.message
-
+            success: false,
+            message: error.message,
+            stack: error.stack
         });
 
     }
-
 });
 
 module.exports = router;

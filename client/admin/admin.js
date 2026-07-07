@@ -662,55 +662,44 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
     try {
 
         const response = await fetch(
-
             "https://personal-portfolio-website-923p.onrender.com/api/admin/profile",
-
             {
-
                 method: "PUT",
-
                 headers: {
-
                     "Content-Type": "application/json",
-
                     Authorization: `Bearer ${token}`
-
                 },
-
                 body: JSON.stringify(body)
-
             }
-
         );
-
         const data = await response.json();
-
+        console.log("Status:", response.status);
+        console.log("Response:", data);
         if (!response.ok) {
-
-            alert(data.message);
-
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: data.message
+            });
             return;
-
         }
-
-        alert("Profile Updated Successfully");
-
+        Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: data.message
+        });
         loadProfile();
-
-        document.getElementById("currentPassword").value = "";
-
-        document.getElementById("newPassword").value = "";
-
     }
-
     catch (error) {
 
-        console.log(error);
+        console.error("Fetch Error:", error);
 
-        alert("Unable to update profile");
-
+        Swal.fire({
+            icon: "error",
+            title: "Network Error",
+            text: error.message
+        });
     }
-
 });
 
 // =========================
