@@ -2,14 +2,12 @@ const Admin = require("../models/Admin");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Login Admin
 const loginAdmin = async (req, res) => {
 
     try {
 
         const { username, email, password } = req.body;
 
-        // Find admin using BOTH username and email
         const admin = await Admin.findOne({
             username,
             email
@@ -22,7 +20,10 @@ const loginAdmin = async (req, res) => {
             });
         }
 
-        const isMatch = await bcrypt.compare(password, admin.password);
+        const isMatch = await bcrypt.compare(
+            password,
+            admin.password
+        );
 
         if (!isMatch) {
             return res.status(401).json({
@@ -32,9 +33,13 @@ const loginAdmin = async (req, res) => {
         }
 
         const token = jwt.sign(
-            { id: admin._id },
+            {
+                id: admin._id
+            },
             process.env.JWT_SECRET,
-            { expiresIn: "1d" }
+            {
+                expiresIn: "1d"
+            }
         );
 
         res.json({
@@ -43,10 +48,14 @@ const loginAdmin = async (req, res) => {
             message: "Login Successful"
         });
 
-    } catch (error) {
+    }
+    catch (err) {
+
         console.log(err);
+
         res.status(500).json({
-            message: error.message
+            success: false,
+            message: err.message
         });
 
     }

@@ -141,31 +141,24 @@ router.put("/profile", auth, async (req, res) => {
 
         }
 
-        // Update Username
-        admin.username = req.body.username;
+        if(req.body.username){
+            admin.username = req.body.username;
+        }
 
         // Update Email only if a new email is entered
         if (req.body.newEmail && req.body.newEmail.trim() !== "") {
 
-            if (req.body.currentEmail !== admin.email) {
-
-                return res.status(400).json({
-                    message: "Current email is incorrect"
-                });
-
-            }
-
-            // Check if another admin already uses this email
             const existingEmail = await Admin.findOne({
                 email: req.body.newEmail
             });
 
-            if (existingEmail && existingEmail._id.toString() !== admin._id.toString()) {
-
+            if (
+                existingEmail &&
+                existingEmail._id.toString() !== admin._id.toString()
+            ) {
                 return res.status(400).json({
                     message: "Email already exists"
                 });
-
             }
 
             admin.email = req.body.newEmail;

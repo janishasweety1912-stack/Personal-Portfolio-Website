@@ -643,11 +643,11 @@ async function loadProfile() {
 // ======================
 
 document.getElementById("profileForm").addEventListener("submit", async (e) => {
+
     e.preventDefault();
 
     const body = {
         username: document.getElementById("newUsername").value.trim(),
-        currentEmail: document.getElementById("currentEmail").value.trim(),
         newEmail: document.getElementById("newEmail").value.trim(),
         currentPassword: document.getElementById("currentPassword").value,
         newPassword: document.getElementById("newPassword").value
@@ -667,21 +667,37 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
             }
         );
 
-        console.log("Status =", response.status);
-
         const data = await response.json();
 
-        console.log(data);
+        if (!response.ok) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: data.message
+            });
+            return;
+        }
 
         Swal.fire({
-            icon: response.ok ? "success" : "error",
-            title: response.ok ? "Success" : "Error",
+            icon: "success",
+            title: "Success",
             text: data.message
         });
 
+        loadProfile();
+
     } catch (err) {
-        console.log(err);
+
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Unable to connect to server."
+        });
+
+        console.error(err);
+
     }
+
 });
 
 // =========================
