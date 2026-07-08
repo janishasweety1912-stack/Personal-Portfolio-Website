@@ -1,3 +1,4 @@
+console.log("✅ adminRoutes.js executed");
 const express = require("express");
 const router = express.Router();
 
@@ -13,7 +14,11 @@ const upload = require("../middleware/upload");
 
 function auth(req, res, next) {
 
+    console.log("Authorization Header:", req.headers.authorization);
+
     const token = req.headers.authorization?.split(" ")[1];
+
+    console.log("Extracted Token:", token);
 
     if (!token) {
         return res.status(401).json({
@@ -23,23 +28,23 @@ function auth(req, res, next) {
 
     try {
 
-        const verified = jwt.verify(
-            token,
-            process.env.JWT_SECRET
-        );
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+
+        console.log("Verified:", verified);
 
         req.admin = verified;
 
         next();
 
-    } catch (error) {
+    } catch (err) {
+
+        console.log("JWT ERROR:", err.message);
 
         return res.status(401).json({
             message: "Invalid Token"
         });
 
     }
-
 }
 
 const { loginAdmin } = require("../controllers/adminController");

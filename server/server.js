@@ -25,6 +25,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Routes
 app.use("/api/projects", projectRoutes);
 app.use("/api/contact", contactRoutes); 
+console.log("✅ Admin routes loaded");
 app.use("/api/admin", adminRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 

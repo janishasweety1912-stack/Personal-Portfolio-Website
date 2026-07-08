@@ -3,7 +3,7 @@
 // =========================
 
 const token = localStorage.getItem("token");
-
+alert(token);
 if (!token) {
     window.location.href = "login.html";
 }
@@ -643,7 +643,6 @@ async function loadProfile() {
 // ======================
 
 document.getElementById("profileForm").addEventListener("submit", async (e) => {
-
     e.preventDefault();
 
     const body = {
@@ -662,45 +661,27 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(body)
             }
         );
 
-        // ❌ DON'T use response.json() immediately
-        const text = await response.text();
+        console.log("Status =", response.status);
 
-        let data;
+        const data = await response.json();
 
-        try {
-            data = JSON.parse(text);
-        } catch {
-            throw new Error("Backend returned HTML instead of JSON");
-        }
-
-        if (!response.ok) {
-            throw new Error(data.message);
-        }
+        console.log(data);
 
         Swal.fire({
-            icon: "success",
-            title: "Success",
+            icon: response.ok ? "success" : "error",
+            title: response.ok ? "Success" : "Error",
             text: data.message
         });
 
-        loadProfile();
-
     } catch (err) {
-
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: err.message
-        });
-
+        console.log(err);
     }
-
 });
 
 // =========================

@@ -25,5 +25,5 @@ const adminSchema = new mongoose.Schema({
     }
 
 });
-
-module.exports = router;
+const Admin = mongoose.model("Admin", adminSchema);
+module.exports = Admin;
