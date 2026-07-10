@@ -24,7 +24,7 @@ const projectSchema = new mongoose.Schema(
 
     demoLink: {
       type: String,
-      required: true,
+      default: "",
     },
 
     githubLink: {

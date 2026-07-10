@@ -9,6 +9,7 @@ const contactRoutes = require("./routes/contactRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const portfolioRoutes = require("./routes/portfolioRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use("/api/contact", contactRoutes);
 console.log("✅ Admin routes loaded");
 app.use("/api/admin", adminRoutes);
 app.use("/api/portfolio", portfolioRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // Home Route (Optional)
 app.get("/", (req, res) => {

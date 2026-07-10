@@ -1,9 +1,7 @@
 // =========================
 // AUTH CHECK
 // =========================
-
 const token = localStorage.getItem("token");
-alert(token);
 if (!token) {
     window.location.href = "login.html";
 }
@@ -11,17 +9,14 @@ if (!token) {
 // =========================
 // ELEMENTS
 // =========================
-
 const tableBody = document.getElementById("tableBody");
 const searchInput = document.getElementById("search");
-
 const menuItems = document.querySelectorAll(".menu-item");
-
+const dashboardPage = document.getElementById("dashboardPage");
 const messagesPage = document.getElementById("messagesPage");
 const projectsPage = document.getElementById("projectsPage");
 const profilePage = document.getElementById("profilePage");
 const portfolioPage = document.getElementById("portfolioPage");
-
 const addProjectBtn = document.getElementById("addProjectBtn");
 const projectForm = document.getElementById("projectForm");
 
@@ -42,9 +37,10 @@ menuItems.forEach(item => {
         item.classList.add("active");
 
         // Hide every page first
+        dashboardPage.style.display = "none";
         messagesPage.style.display = "none";
         projectsPage.style.display = "none";
-
+        
         if(profilePage)
             profilePage.style.display = "none";
 
@@ -52,7 +48,13 @@ menuItems.forEach(item => {
             portfolioPage.style.display = "none";
 
         // Show selected page
-        if(item.dataset.page === "messages"){
+        if(item.dataset.page === "dashboard"){
+            dashboardPage.style.display="block";
+
+            loadDashboard();
+
+        }
+        else if(item.dataset.page === "messages"){
 
             messagesPage.style.display = "block";
 
@@ -168,8 +170,6 @@ function displayContacts(contacts) {
 
 }
 
-loadContacts();
-
 messagesPage.style.display = "block";
 projectsPage.style.display = "none";
 
@@ -198,34 +198,20 @@ searchInput.addEventListener("keyup", () => {
 // =========================
 
 async function deleteContact(id) {
-
     if (!confirm("Delete this message?"))
         return;
-
     try {
-
         await fetch(
-
             `https://personal-portfolio-website-923p.onrender.com/api/contact/${id}`,
-
             {
-
                 method: "DELETE"
-
             }
-
         );
-
         loadContacts();
-
     }
-
     catch (error) {
-
         console.log(error);
-
     }
-
 }
 
 // =========================
@@ -233,77 +219,45 @@ async function deleteContact(id) {
 // =========================
 
 async function loadProjects() {
-
     try {
-
         const response = await fetch(
-
             "https://personal-portfolio-website-923p.onrender.com/api/projects"
-
         );
-
         const projects = await response.json();
-
         allProjects = projects;
-
         const container =
             document.getElementById("projectsTable");
-
         container.innerHTML = "";
-
         projects.forEach(project => {
-
             container.innerHTML += `
-
             <div class="project-card">
-
                 <img
                     src="https://personal-portfolio-website-923p.onrender.com/${project.image}"
                     class="project-image"
                     alt="${project.title}">
-
                 <h3>${project.title}</h3>
-
                 <p>${project.description}</p>
-
                 <div class="project-actions">
-
                     <button
                         class="edit-btn"
                         onclick="editProject('${project._id}')">
-
                         <i class="fa-solid fa-pen"></i>
-
                         Edit
-
                     </button>
-
                     <button
                         class="delete-btn"
                         onclick="deleteProject('${project._id}')">
-
                         <i class="fa-solid fa-trash"></i>
-
                         Delete
-
                     </button>
-
                 </div>
-
             </div>
-
             `;
-
         });
-
     }
-
     catch (error) {
-
         console.log(error);
-
     }
-
 }
 
 // =========================
@@ -329,9 +283,7 @@ addProjectBtn.addEventListener("click", () => {
 // SAVE / UPDATE PROJECT
 // =========================
 
-projectForm.addEventListener("submit", async (e) => {
-
-    e.preventDefault();
+projectForm.addEventListener("submit", async (e) => { e.preventDefault();
 
     // ==========================
     // Upload Image First
@@ -389,6 +341,9 @@ projectForm.addEventListener("submit", async (e) => {
         githubLink: document.getElementById("githubLink").value.trim()
 
     };
+    console.log("Project Object:");
+    console.log(project);
+    console.log("Demo Link =", document.getElementById("demoLink").value);
 
     const url = editingProjectId
         ? `https://personal-portfolio-website-923p.onrender.com/api/projects/${editingProjectId}`
@@ -415,7 +370,14 @@ projectForm.addEventListener("submit", async (e) => {
             body: JSON.stringify(project)
 
         });
+        const data = await response.json();
 
+        console.log("STATUS =", response.status);
+        console.log("RESPONSE =", data);
+
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
         const result = await response.json();
 
         if (!response.ok) {
@@ -601,39 +563,58 @@ async function loadProfile() {
         );
 
         const admin = await response.json();
-        
+
         if (!response.ok) {
             throw new Error(admin.message);
         }
 
         document.getElementById("profileUsername").textContent = admin.username;
-
+        document.getElementById("adminName").textContent = admin.username;
         document.getElementById("profileEmail").textContent = admin.email || "";
 
         document.getElementById("newUsername").value = admin.username;
-        document.getElementById("currentEmail").value = admin.email || "";
         document.getElementById("newEmail").value = "";
 
         const profileImage = document.getElementById("profileImage");
+        const profileInitials = document.getElementById("profileInitials");
 
-        if (admin.profileImage && admin.profileImage !== "") {
+        // Create initials (Anisha Sweety -> AS)
+        const initials = admin.username
+            .trim()
+            .split(/\s+/)
+            .map(name => name.charAt(0))
+            .join("")
+            .substring(0, 2)
+            .toUpperCase();
 
+        profileInitials.textContent = initials;
+
+        // Default state
+        profileImage.style.display = "none";
+        profileInitials.style.display = "flex";
+
+        // If image exists in database
+        if (admin.profileImage) {
+
+            profileImage.onload = function () {
+                profileImage.style.display = "block";
+                profileInitials.style.display = "none";
+            };
+
+            profileImage.onerror = function () {
+                profileImage.style.display = "none";
+                profileInitials.style.display = "flex";
+            };
+
+            // Prevent browser cache
             profileImage.src =
-                `https://personal-portfolio-website-923p.onrender.com/${admin.profileImage}`;
-
-        } else {
-
-            profileImage.src =
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(admin.username)}&background=B89C8E&color=fff&size=200`;
+                `https://personal-portfolio-website-923p.onrender.com/${admin.profileImage}?t=${Date.now()}`;
 
         }
 
     }
-
     catch (error) {
-
-        console.log(error);
-
+        console.error(error);
     }
 
 }
@@ -848,19 +829,13 @@ document.getElementById("portfolioForm")
 // ======================
 
 const profileImageInput = document.getElementById("profileImageInput");
-
 profileImageInput.addEventListener("change", async () => {
-
     const file = profileImageInput.files[0];
-
-    if (!file) return;
-
+    if (!file) 
+        return;
     const formData = new FormData();
-
     formData.append("profileImage", file);
-
     try {
-
         const response = await fetch(
             "https://personal-portfolio-website-923p.onrender.com/api/admin/upload-profile",
             {
@@ -871,32 +846,76 @@ profileImageInput.addEventListener("change", async () => {
                 body: formData
             }
         );
-
         const data = await response.json();
-
         if (!response.ok) {
             throw new Error(data.message);
         }
-
         Swal.fire({
             icon: "success",
             title: "Success",
             text: "Profile picture updated"
         });
-
         loadProfile();
-
     } catch (err) {
-
         Swal.fire({
             icon: "error",
             title: "Error",
             text: err.message
         });
-
     }
-
 });
 
+// ======================
+// DASHBOARD
+// ======================
+
+async function loadDashboard() {
+    try {
+        const projectResponse = await fetch(
+            "https://personal-portfolio-website-923p.onrender.com/api/projects"
+        );
+        const projects = await projectResponse.json();
+        const messageResponse = await fetch(
+            "https://personal-portfolio-website-923p.onrender.com/api/contact"
+        );
+        const messages = await messageResponse.json();
+        document.getElementById("dashboardProjects").textContent = projects.length;
+        document.getElementById("dashboardMessages").textContent = messages.length;
+        // Popup only once immediately after login
+        if (!sessionStorage.getItem("showDashboardPopup") === "true") {
+            sessionStorage.removeItem("showDashboardPopup");
+            const profileResponse = await fetch(
+                "https://personal-portfolio-website-923p.onrender.com/api/admin/profile",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            const admin = await profileResponse.json();
+            console.log(admin);
+            console.log(admin.username);
+            Swal.fire({
+                icon: "success",
+                title: `Welcome Back, ${admin.username} 👋`,
+                html: `
+                    📁<b>Total Projects :</b> ${projects.length}<br><br>
+                    📩<b>Total Messages :</b> ${messages.length}
+                `,
+                confirmButtonText: "Continue"
+            });
+        }
+    }
+    catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: error.message
+        });
+    }
+}
+
+loadDashboard();
 loadPortfolio();
 loadProfile();
+loadContacts();

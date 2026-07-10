@@ -19,14 +19,14 @@ async function createAdmin() {
         });
 
         // Encrypt password
-        const hashedPassword = await bcrypt.hash("Jayakumar@1", 10);
+        const hashedPassword = await bcrypt.hash("123", 10);
 
         // Create new admin
         await Admin.create({
 
             username: "Anisha Sweety J",
 
-            email: "j.anishasweety1912@gmail.com", 
+            email: "anishasweety@gmail.com", 
 
             password: hashedPassword,
 
@@ -36,8 +36,8 @@ async function createAdmin() {
 
         console.log("✅ Admin Created Successfully");
         console.log("Username : Anisha Sweety J");
-        console.log("Email    : j.anishasweety1912@gmail.com");
-        console.log("Password : Jayakumar@1");
+        console.log("Email    : anishasweety@gmail.com");
+        console.log("Password : 123");
 
         process.exit();
 

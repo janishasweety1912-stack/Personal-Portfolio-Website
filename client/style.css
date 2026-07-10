@@ -747,6 +747,10 @@ section{
     gap: 8px;
 }
 
+.project-tech span:hover{
+    transform:translateY(-6px);
+}
+
 /* ===============================
    BUTTONS
 ================================ */

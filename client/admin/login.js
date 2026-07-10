@@ -9,52 +9,32 @@ loginForm.addEventListener("submit", async (e) => {
     const password = document.getElementById("password").value.trim();
 
     try{
-
         const response = await fetch(
             "https://personal-portfolio-website-923p.onrender.com/api/admin/login",
             {
-
                 method:"POST",
-
                 headers:{
                     "Content-Type":"application/json"
                 },
-
                 body:JSON.stringify({
                     username,
                     email,
                     password
                 })
-
             }
         );
-
         const data = await response.json();
-
         if(!response.ok){
-
             alert(data.message);
-
             return;
-
         }
-
-        // Save JWT Token
-
         localStorage.setItem("token", data.token);
-
-        // Redirect
-
+        sessionStorage.setItem("showDashboardPopup", "true");
         window.location.href = "admin.html";
-
     }
-
     catch(error){
 
         console.log(error);
-
         alert("Unable to connect to server");
-
     }
-
 });
