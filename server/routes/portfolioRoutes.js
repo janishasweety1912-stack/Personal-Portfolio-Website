@@ -39,6 +39,9 @@ router.get("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
     try {
+        console.log("========== PORTFOLIO UPDATE ==========");
+        console.log(req.body);
+        console.log("Skills Received:", req.body.skills);
         let portfolio = await Portfolio.findOne();
         if (!portfolio) {
             portfolio = new Portfolio();
@@ -67,7 +70,7 @@ router.put("/", async (req, res) => {
         portfolio.certifications = req.body.certifications || [];
         portfolio.achievements = req.body.achievements || [];
         await portfolio.save();
-        
+
         res.json({
             success: true,
             message: "Portfolio updated successfully",

@@ -137,6 +137,25 @@ const skillDatabase = {
 };
 
 // =========================
+// EDUCATION VARIABLES
+// =========================
+
+let education = [];
+let editingEducation = -1;
+
+const degree = document.getElementById("degree");
+const college = document.getElementById("college");
+const location = document.getElementById("location");
+const duration = document.getElementById("duration");
+const result = document.getElementById("result");
+
+const addEducationBtn =
+    document.getElementById("addEducationBtn");
+
+const educationList =
+    document.getElementById("educationList");
+
+// =========================
 // SIDEBAR
 // =========================
 
@@ -536,14 +555,11 @@ function editProject(id) {
 
     document.getElementById("existingImage").value = project.image;
 
-    document.getElementById("technologies").value =
-        project.technologies.join(", ");
+    document.getElementById("technologies").value = project.technologies.join(", ");
 
-    document.getElementById("demoLink").value =
-        project.demoLink;
+    document.getElementById("demoLink").value = project.demoLink;
 
-    document.getElementById("githubLink").value =
-        project.githubLink;
+    document.getElementById("githubLink").value = project.githubLink;
 
     editingProjectId = id;
 
@@ -818,7 +834,7 @@ document.getElementById("portfolioForm")
         skills: skills
     };
     console.log("Portfolio being sent:", portfolio);
-    console.log("Skills array:", skills);
+    console.log("Before Save:", JSON.stringify(skills));
     try{
         const response = await fetch(
             "https://personal-portfolio-website-923p.onrender.com/api/portfolio",
@@ -992,6 +1008,7 @@ addSkillBtn.addEventListener("click", () => {
         icon: selectedSkill.icon,
         description: selectedSkill.description
     };
+    console.log(skill);
     if (editingSkill === -1) {
         skills.push(skill);
     } else {
@@ -1013,12 +1030,10 @@ addSkillBtn.addEventListener("click", () => {
 function editSkill(index) {
     const skill = skills[index];
     skillName.value = skill.name;
-    //skillCategory.value = skill.category;
     skillPercentage.value = skill.percentage;
-    //skillIcon.value = skill.icon;
-    //skillDescription.value = skill.description;
     editingSkill = index;
     addSkillBtn.innerHTML = "Update Skill";
+    renderSkills();
 }
 
 // =========================
@@ -1034,6 +1049,36 @@ function deleteSkill(index) {
     }).then(result => {
         if (!result.isConfirmed) return;
         skills.splice(index, 1);
+        console.log("After Delete:", JSON.stringify(skills));
         renderSkills();
+    });
+}
+
+// =========================
+// RENDER EDUCATION
+// =========================
+
+function renderEducation() {
+    educationList.innerHTML = "";
+    education.forEach((item, index) => {
+        educationList.innerHTML += `
+        <div class="skill-card">
+            <div>
+                <strong>${item.degree}</strong>
+                <br>
+                ${item.college}
+                <br>
+                ${item.duration}
+            </div>
+            <div>
+                <button type="button" class="edit-btn" onclick="editEducation(${index})">
+                    Edit
+                </button>
+                <button type="button" class="delete-btn" onclick="deleteEducation(${index})">
+                    Delete
+                </button>
+            </div>
+        </div>
+        `;
     });
 }
