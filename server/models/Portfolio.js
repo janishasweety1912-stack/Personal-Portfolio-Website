@@ -85,7 +85,8 @@ const portfolioSchema = new mongoose.Schema({
             name: String,
             category: String,
             percentage: Number,
-            icon: String
+            icon: String,
+            description: String
         }
     ],
 

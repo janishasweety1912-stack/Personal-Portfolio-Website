@@ -247,6 +247,9 @@ function renderSkills(skills) {
             <div class="skill-item">
                 <i class="${skill.icon}"></i>
                 <span>${skill.name}</span>
+                <span class = "tooltip-text">
+                    ${skill.description}
+                </span>
                 <div class="progress-bar">
                     <div
                         class="progress"

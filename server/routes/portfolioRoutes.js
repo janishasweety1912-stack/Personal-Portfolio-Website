@@ -41,18 +41,42 @@ router.put("/", async (req, res) => {
     try {
         let portfolio = await Portfolio.findOne();
         if (!portfolio) {
-            portfolio = await Portfolio.create(req.body);
-        } else {
-            Object.assign(portfolio, req.body);
-            await portfolio.save();
+            portfolio = new Portfolio();
         }
+
+        // Basic Information
+        portfolio.name = req.body.name;
+        portfolio.role = req.body.role;
+        portfolio.heroDescription = req.body.heroDescription;
+        portfolio.heroDescription2 = req.body.heroDescription2;
+        portfolio.about = req.body.about;
+        portfolio.about2 = req.body.about2;
+        portfolio.about3 = req.body.about3;
+        portfolio.about4 = req.body.about4;
+        portfolio.email = req.body.email;
+        portfolio.mobile = req.body.mobile;
+        portfolio.location = req.body.location;
+        portfolio.github = req.body.github;
+        portfolio.linkedin = req.body.linkedin;
+        portfolio.resume = req.body.resume;
+
+        // Arrays
+        portfolio.skills = req.body.skills || [];
+        portfolio.education = req.body.education || [];
+        portfolio.experience = req.body.experience || [];
+        portfolio.certifications = req.body.certifications || [];
+        portfolio.achievements = req.body.achievements || [];
+        await portfolio.save();
+        
         res.json({
             success: true,
             message: "Portfolio updated successfully",
             portfolio
         });
     } catch (error) {
-        res.status(400).json({
+        console.log(error);
+        res.status(500).json({
+            success: false,
             message: error.message
         });
     }

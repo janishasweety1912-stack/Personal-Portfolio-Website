@@ -36,8 +36,105 @@ const skillName = document.getElementById("skillName");
 const skillCategory = document.getElementById("skillCategory");
 const skillPercentage = document.getElementById("skillPercentage");
 const skillIcon = document.getElementById("skillIcon");
-
 const skillsList = document.getElementById("skillsList");
+const skillDatabase = {
+
+    "Java": {
+        category: "Languages",
+        icon: "fa-brands fa-java",
+        description: "OOP & Backend Development"
+    },
+
+    "Python": {
+        category: "Languages",
+        icon: "fa-brands fa-python",
+        description: "Automation & AI"
+    },
+
+    "C": {
+        category: "Languages",
+        icon: "devicon-c-plain",
+        description: "Programming Fundamentals"
+    },
+
+    "C++": {
+        category: "Languages",
+        icon: "devicon-cplusplus-plain",
+        description: "OOP & Performance"
+    },
+
+    "HTML": {
+        category: "Frontend",
+        icon: "fa-brands fa-html5",
+        description: "Web Structure"
+    },
+
+    "CSS": {
+        category: "Frontend",
+        icon: "fa-brands fa-css3-alt",
+        description: "Responsive Design"
+    },
+
+    "JavaScript": {
+        category: "Frontend",
+        icon: "fa-brands fa-js",
+        description: "Interactive Web"
+    },
+
+    "React": {
+        category: "Frontend",
+        icon: "fa-brands fa-react",
+        description: "Frontend Library"
+    },
+
+    "Node.js": {
+        category: "Backend",
+        icon: "fa-brands fa-node-js",
+        description: "Backend Runtime"
+    },
+
+    "Express.js": {
+        category: "Backend",
+        icon: "fa-solid fa-server",
+        description: "REST APIs"
+    },
+
+    "MySQL": {
+        category: "Database",
+        icon: "fa-solid fa-database",
+        description: "Relational Database"
+    },
+
+    "MongoDB": {
+        category: "Database",
+        icon: "devicon-mongodb-plain",
+        description: "NoSQL Database"
+    },
+
+    "Git": {
+        category: "Tools",
+        icon: "fa-brands fa-git-alt",
+        description: "Version Control"
+    },
+
+    "GitHub": {
+        category: "Tools",
+        icon: "fa-brands fa-github",
+        description: "Code Repository"
+    },
+
+    "VS Code": {
+        category: "Tools",
+        icon: "devicon-vscode-plain",
+        description: "Code Editor"
+    },
+
+    "Figma": {
+        category: "Tools",
+        icon: "fa-brands fa-figma",
+        description: "UI/UX Design"
+    }
+};
 
 // =========================
 // SIDEBAR
@@ -688,7 +785,7 @@ async function loadPortfolio() {
         // =========================
         // LOAD SKILLS
         // =========================
-
+        skills = [];
         skills = portfolio.skills || [];
         renderSkills();
     }
@@ -720,6 +817,8 @@ document.getElementById("portfolioForm")
         resume: document.getElementById("portfolioResume").value,
         skills: skills
     };
+    console.log("Portfolio being sent:", portfolio);
+    console.log("Skills array:", skills);
     try{
         const response = await fetch(
             "https://personal-portfolio-website-923p.onrender.com/api/portfolio",
@@ -856,10 +955,10 @@ function renderSkills() {
                 ${skill.percentage}%
             </div>
             <div>
-                <button onclick="editSkill(${index})" class="edit-btn">
+                <button type="button" onclick="editSkill(${index})" class="edit-btn">
                     Edit
                 </button>
-                <button onclick="deleteSkill(${index})" class="delete-btn">
+                <button type="button" onclick="deleteSkill(${index})" class="delete-btn">
                     Delete
                 </button>
             </div>
@@ -874,7 +973,7 @@ function renderSkills() {
 
 addSkillBtn.addEventListener("click", () => {
     if (
-        skillName.value.trim() === "" ||
+        skillName.value === "" ||
         skillPercentage.value.trim() === ""
     ) {
         Swal.fire({
@@ -884,11 +983,14 @@ addSkillBtn.addEventListener("click", () => {
         });
         return;
     }
+    // Get selected skill details
+    const selectedSkill = skillDatabase[skillName.value];
     const skill = {
-        name: skillName.value.trim(),
-        category: skillCategory.value,
+        name: skillName.value,
+        category: selectedSkill.category,
         percentage: Number(skillPercentage.value),
-        icon: skillIcon.value.trim()
+        icon: selectedSkill.icon,
+        description: selectedSkill.description
     };
     if (editingSkill === -1) {
         skills.push(skill);
@@ -897,10 +999,10 @@ addSkillBtn.addEventListener("click", () => {
         editingSkill = -1;
         addSkillBtn.innerHTML = "Add Skill";
     }
-    skillName.value = "";
+    // Reset Form
+    skillName.selectedIndex = 0;
     skillPercentage.value = "";
-    skillIcon.value = "";
-    skillCategory.selectedIndex = 0;
+    //skillDescription.value = "";
     renderSkills();
 });
 
@@ -911,9 +1013,10 @@ addSkillBtn.addEventListener("click", () => {
 function editSkill(index) {
     const skill = skills[index];
     skillName.value = skill.name;
-    skillCategory.value = skill.category;
+    //skillCategory.value = skill.category;
     skillPercentage.value = skill.percentage;
-    skillIcon.value = skill.icon;
+    //skillIcon.value = skill.icon;
+    //skillDescription.value = skill.description;
     editingSkill = index;
     addSkillBtn.innerHTML = "Update Skill";
 }
