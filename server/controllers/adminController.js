@@ -34,11 +34,12 @@ const loginAdmin = async (req, res) => {
 
         const token = jwt.sign(
             {
-                id: admin._id
+                id: admin._id,
+                username: admin.username
             },
             process.env.JWT_SECRET,
             {
-                expiresIn: "1d"
+                expiresIn: "7d"
             }
         );
 

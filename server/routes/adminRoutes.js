@@ -28,9 +28,12 @@ function auth(req, res, next) {
 
     try {
 
+        console.log("TOKEN:", token);
+        console.log("SECRET:", process.env.JWT_SECRET);
+
         const verified = jwt.verify(token, process.env.JWT_SECRET);
 
-        console.log("Verified:", verified);
+        console.log("VERIFIED:", verified);
 
         req.admin = verified;
 
@@ -38,9 +41,11 @@ function auth(req, res, next) {
 
     } catch (err) {
 
-        console.log("JWT ERROR:", err.message);
+        console.log("JWT ERROR:");
+        console.log(err);
 
         return res.status(401).json({
+            success: false;
             message: "Invalid Token"
         });
 

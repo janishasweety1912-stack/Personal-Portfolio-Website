@@ -1,7 +1,7 @@
 // =========================
 // AUTH CHECK
 // =========================
-const token = localStorage.getItem("token");
+let token = localStorage.getItem("token");
 if (!token) {
     window.location.href = "login.html";
 }
@@ -288,7 +288,7 @@ projectForm.addEventListener("submit", async (e) => { e.preventDefault();
     // ==========================
     // Upload Image First
     // ==========================
-
+    const token = localStorage.getItem("token");
     let imagePath = document.getElementById("existingImage").value;
     const imageInput = document.getElementById("image");
 
@@ -337,7 +337,6 @@ projectForm.addEventListener("submit", async (e) => { e.preventDefault();
             .map(item => item.trim()),
 
         demoLink: document.getElementById("demoLink").value.trim(),
-
         githubLink: document.getElementById("githubLink").value.trim()
 
     };
@@ -370,43 +369,19 @@ projectForm.addEventListener("submit", async (e) => { e.preventDefault();
             body: JSON.stringify(project)
 
         });
-        const data = await response.json();
-
-        console.log("STATUS =", response.status);
-        console.log("RESPONSE =", data);
-
-        if (!response.ok) {
-            throw new Error(data.message);
-        }
         const result = await response.json();
 
         if (!response.ok) {
-
-            throw new Error(result.message);
-
+            throw new Error(result.message || "Unable to save project");
         }
 
-        if (editingProjectId) {
-
-            Swal.fire({
-                icon: "success",
-                title: "Updated!",
-                text: "Project Updated Successfully",
-                timer: 1800,
-                showConfirmButton: false
-            });
-
-        } else {
-
-            Swal.fire({
-                icon: "success",
-                title: "Success!",
-                text: "Project Added Successfully",
-                timer: 1800,
-                showConfirmButton: false
-            });
-
-        }
+        Swal.fire({
+            icon: "success",
+            title: editingProjectId ? "Updated!" : "Success!",
+            text: editingProjectId
+                ? "Project Updated Successfully"
+                : "Project Added Successfully"
+        });
 
         projectForm.reset();
         document.getElementById("existingImage").value = "";
@@ -493,32 +468,26 @@ async function deleteProject(id) {
 
     if (!result.isConfirmed) return;
 
+    // Get the latest token every time
+    const token = localStorage.getItem("token");
+
     try {
 
         const response = await fetch(
-
             `https://personal-portfolio-website-923p.onrender.com/api/projects/${id}`,
-
             {
-
                 method: "DELETE",
-
                 headers: {
-
-                    Authorization: `Bearer ${token}`
-
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
                 }
-
             }
-
         );
 
         const data = await response.json();
 
         if (!response.ok) {
-
             throw new Error(data.message);
-
         }
 
         Swal.fire({
@@ -531,9 +500,7 @@ async function deleteProject(id) {
 
         loadProjects();
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         Swal.fire({
             icon: "error",
