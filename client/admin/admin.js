@@ -22,7 +22,22 @@ const projectForm = document.getElementById("projectForm");
 
 let allContacts = [];
 let allProjects = [];
+let skills = [];
+let editingSkill = -1;
 let editingProjectId = null;
+
+// =========================
+// SKILLS VARIABLES
+// =========================
+
+const addSkillBtn = document.getElementById("addSkillBtn");
+
+const skillName = document.getElementById("skillName");
+const skillCategory = document.getElementById("skillCategory");
+const skillPercentage = document.getElementById("skillPercentage");
+const skillIcon = document.getElementById("skillIcon");
+
+const skillsList = document.getElementById("skillsList");
 
 // =========================
 // SIDEBAR
@@ -591,32 +606,24 @@ async function loadProfile() {
 // ======================
 
 document.getElementById("profileForm").addEventListener("submit", async (e) => {
-
     e.preventDefault();
-
     const body = {
         username: document.getElementById("newUsername").value.trim(),
         newEmail: document.getElementById("newEmail").value.trim(),
         currentPassword: document.getElementById("currentPassword").value,
         newPassword: document.getElementById("newPassword").value
     };
-
     try {
-
-        const response = await fetch(
-            "https://personal-portfolio-website-923p.onrender.com/api/admin/profile",
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(body)
-            }
-        );
-
+        const response = await fetch("https://personal-portfolio-website-923p.onrender.com/api/admin/profile",
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(body)
+        });
         const data = await response.json();
-
         if (!response.ok) {
             Swal.fire({
                 icon: "error",
@@ -625,27 +632,20 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
             });
             return;
         }
-
         Swal.fire({
             icon: "success",
             title: "Success",
             text: data.message
         });
-
         loadProfile();
-
     } catch (err) {
-
         Swal.fire({
             icon: "error",
             title: "Error",
             text: "Unable to connect to server."
         });
-
         console.error(err);
-
     }
-
 });
 
 // =========================
@@ -653,21 +653,13 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
 // =========================
 
 const logoutBtn = document.querySelector(".fa-right-from-bracket")?.parentElement;
-
 if (logoutBtn) {
-
     logoutBtn.addEventListener("click", () => {
-
         const confirmLogout = confirm("Logout from Admin Panel?");
-
         if (!confirmLogout) return;
-
         localStorage.removeItem("token");
-
         window.location.href = "login.html";
-
     });
-
 }
 
 // =========================
@@ -675,15 +667,9 @@ if (logoutBtn) {
 // =========================
 
 async function loadPortfolio() {
-
     try {
-
-        const response = await fetch(
-            "https://personal-portfolio-website-923p.onrender.com/api/portfolio"
-        );
-
+        const response = await fetch("https://personal-portfolio-website-923p.onrender.com/api/portfolio");
         const portfolio = await response.json();
-
         document.getElementById("portfolioName").value = portfolio.name || "";
         document.getElementById("portfolioRole").value = portfolio.role || "";
         document.getElementById("heroDescription").value = portfolio.heroDescription || "";
@@ -699,16 +685,17 @@ async function loadPortfolio() {
         document.getElementById("portfolioLinkedin").value = portfolio.linkedin || "";
         document.getElementById("portfolioResume").value = portfolio.resume || "";
 
-    }
+        // =========================
+        // LOAD SKILLS
+        // =========================
 
+        skills = portfolio.skills || [];
+        renderSkills();
+    }
     catch (error) {
-
         console.log(error);
-
     }
-
 }
-
 
 // =========================
 // SAVE PORTFOLIO
@@ -716,79 +703,44 @@ async function loadPortfolio() {
 
 document.getElementById("portfolioForm")
 .addEventListener("submit", async function(e){e.preventDefault();
-
     const portfolio = {
-
         name: document.getElementById("portfolioName").value,
-
         role: document.getElementById("portfolioRole").value,
-        heroDescription:
-        document.getElementById("heroDescription").value,
-
+        heroDescription: document.getElementById("heroDescription").value,
         heroDescription2: document.getElementById("heroDescription2").value,
-
         about: document.getElementById("portfolioAbout").value,
-
         about2: document.getElementById("portfolioAbout2").value,
-
         about3: document.getElementById("portfolioAbout3").value,
-
         about4: document.getElementById("portfolioAbout4").value,
-
         email: document.getElementById("portfolioEmail").value,
-
         mobile: document.getElementById("portfolioMobile").value,
-
         location: document.getElementById("portfolioLocation").value,
-
         github: document.getElementById("portfolioGithub").value,
-
         linkedin: document.getElementById("portfolioLinkedin").value,
-
-        resume: document.getElementById("portfolioResume").value
-
+        resume: document.getElementById("portfolioResume").value,
+        skills: skills
     };
-
     try{
-
         const response = await fetch(
-
             "https://personal-portfolio-website-923p.onrender.com/api/portfolio",
-
             {
-
                 method:"PUT",
-
                 headers:{
                     "Content-Type":"application/json"
                 },
-
                 body:JSON.stringify(portfolio)
-
             }
-
         );
-
         const data = await response.json();
-
         Swal.fire({
-
             icon:"success",
-
             title:"Saved!",
-
             text:"Portfolio Updated Successfully"
-
         });
-
     }
-
     catch(error){
-
         console.log(error);
-
     }
-
 });
 
 // ======================
@@ -886,3 +838,99 @@ loadDashboard();
 loadPortfolio();
 loadProfile();
 loadContacts();
+
+// =========================
+// RENDER SKILLS
+// =========================
+
+function renderSkills() {
+    skillsList.innerHTML = "";
+    skills.forEach((skill, index) => {
+        skillsList.innerHTML += `
+        <div class="skill-card">
+            <div>
+                <strong>${skill.name}</strong>
+                <br>
+                ${skill.category}
+                •
+                ${skill.percentage}%
+            </div>
+            <div>
+                <button onclick="editSkill(${index})" class="edit-btn">
+                    Edit
+                </button>
+                <button onclick="deleteSkill(${index})" class="delete-btn">
+                    Delete
+                </button>
+            </div>
+        </div>
+        `;
+    });
+}
+
+// =========================
+// ADD SKILL
+// =========================
+
+addSkillBtn.addEventListener("click", () => {
+    if (
+        skillName.value.trim() === "" ||
+        skillPercentage.value.trim() === ""
+    ) {
+        Swal.fire({
+            icon: "warning",
+            title: "Missing Fields",
+            text: "Please complete all fields."
+        });
+        return;
+    }
+    const skill = {
+        name: skillName.value.trim(),
+        category: skillCategory.value,
+        percentage: Number(skillPercentage.value),
+        icon: skillIcon.value.trim()
+    };
+    if (editingSkill === -1) {
+        skills.push(skill);
+    } else {
+        skills[editingSkill] = skill;
+        editingSkill = -1;
+        addSkillBtn.innerHTML = "Add Skill";
+    }
+    skillName.value = "";
+    skillPercentage.value = "";
+    skillIcon.value = "";
+    skillCategory.selectedIndex = 0;
+    renderSkills();
+});
+
+// =========================
+// EDIT SKILL
+// =========================
+
+function editSkill(index) {
+    const skill = skills[index];
+    skillName.value = skill.name;
+    skillCategory.value = skill.category;
+    skillPercentage.value = skill.percentage;
+    skillIcon.value = skill.icon;
+    editingSkill = index;
+    addSkillBtn.innerHTML = "Update Skill";
+}
+
+// =========================
+// DELETE SKILL
+// =========================
+
+function deleteSkill(index) {
+    Swal.fire({
+        title: "Delete Skill?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Delete"
+    }).then(result => {
+        if (!result.isConfirmed) return;
+        skills.splice(index, 1);
+        renderSkills();
+    });
+}

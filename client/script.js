@@ -203,3 +203,59 @@ tabButtons.forEach(button => {
 });
 // Run automatically on page load
 document.querySelector('.tab-btn[data-tab="all"]').click();
+
+/* ===============================
+   LOAD PORTFOLIO DATA
+================================ */
+
+async function loadPortfolioData() {
+    try {
+        const response = await fetch(
+            "https://personal-portfolio-website-923p.onrender.com/api/portfolio"
+        );
+        const portfolio = await response.json();
+        renderSkills(portfolio.skills || []);
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+
+/* ===============================
+   RENDER SKILLS
+================================ */
+
+function renderSkills(skills) {
+    const categories = {
+        Languages: document.getElementById("languagesGrid"),
+        Frontend: document.getElementById("frontendGrid"),
+        Backend: document.getElementById("backendGrid"),
+        Database: document.getElementById("databaseGrid"),
+        Tools: document.getElementById("toolsGrid")
+    };
+
+    // Clear all grids
+    Object.values(categories).forEach(grid => {
+        if (grid) {
+            grid.innerHTML = "";
+        }
+    });
+    skills.forEach(skill => {
+        const grid = categories[skill.category];
+        if (!grid) return;
+        grid.innerHTML += `
+            <div class="skill-item">
+                <i class="${skill.icon}"></i>
+                <span>${skill.name}</span>
+                <div class="progress-bar">
+                    <div
+                        class="progress"
+                        style="width:${skill.percentage}%">
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+loadPortfolioData();

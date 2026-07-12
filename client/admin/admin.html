@@ -172,6 +172,37 @@
                 <input type="text" id="portfolioGithub" placeholder="GitHub Link">
                 <input type="text" id="portfolioLinkedin" placeholder="LinkedIn Link">
                 <input type="text" id="portfolioResume" placeholder="Resume Path (uploads/resume.pdf)">
+                <hr>
+                <h3 class="sub-title">
+                    Skills Management
+                </h3>
+                <div class="skill-form">
+                    <input type="text" id="skillName" placeholder="Skill Name">
+                    <select id="skillCategory">
+                        <option value="Languages">
+                            Languages
+                        </option>
+                        <option value="Frontend">
+                            Frontend
+                        </option>
+                        <option value="Backend">
+                            Backend
+                        </option>
+                        <option value="Database">
+                            Database
+                        </option>
+                        <option value="Tools">
+                            Tools
+                        </option>
+                    </select>
+                    <input type="number" id="skillPercentage" placeholder="Percentage">
+                    <input type="text" id="skillIcon" placeholder="Font Awesome Class">
+                    <button type="button" id="addSkillBtn">
+                        Add Skill
+                    </button>
+                </div>
+                <div id="skillsList" class="skills-list">
+                </div>
                 <button type="submit">
                     Save Portfolio
                 </button>

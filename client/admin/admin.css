@@ -704,3 +704,72 @@ tbody tr:hover{
 .portfolio-form button:hover{
     background:#8F6C5D;
 }
+
+/*=============================
+    Skills Management
+=============================*/
+
+.sub-title{
+
+    margin-top:40px;
+    margin-bottom:20px;
+
+    font-size:22px;
+
+}
+
+.skill-form{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+}
+
+.skill-form input,
+.skill-form select{
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+}
+
+.skill-form button{
+
+    background:#2563eb;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.skill-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#f8f9fa;
+
+    padding:12px;
+
+    margin-bottom:10px;
+
+    border-radius:8px;
+
+}
