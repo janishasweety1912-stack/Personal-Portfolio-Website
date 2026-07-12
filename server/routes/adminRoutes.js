@@ -45,7 +45,7 @@ function auth(req, res, next) {
         console.log(err);
 
         return res.status(401).json({
-            success: false;
+            success: false,
             message: "Invalid Token"
         });
 
