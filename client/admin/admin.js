@@ -1,7 +1,7 @@
 // =========================
 // AUTH CHECK
 // =========================
-let token = localStorage.getItem("token");
+const token = localStorage.getItem("token");
 if (!token) {
     window.location.href = "login.html";
 }
@@ -145,7 +145,7 @@ let editingEducation = -1;
 
 const degree = document.getElementById("degree");
 const college = document.getElementById("college");
-const location = document.getElementById("location");
+const educationLocation = document.getElementById("location");
 const duration = document.getElementById("duration");
 const result = document.getElementById("result");
 
