@@ -825,12 +825,6 @@ document.getElementById("portfolioForm")
         about2: document.getElementById("portfolioAbout2").value,
         about3: document.getElementById("portfolioAbout3").value,
         about4: document.getElementById("portfolioAbout4").value,
-        email: document.getElementById("portfolioEmail").value,
-        mobile: document.getElementById("portfolioMobile").value,
-        location: document.getElementById("portfolioLocation").value,
-        github: document.getElementById("portfolioGithub").value,
-        linkedin: document.getElementById("portfolioLinkedin").value,
-        resume: document.getElementById("portfolioResume").value,
         skills: skills
     };
     console.log("Portfolio being sent:", portfolio);
