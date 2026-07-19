@@ -544,38 +544,22 @@ projectForm.addEventListener("submit", async (e) => { e.preventDefault();
 // =========================
 
 function editProject(id) {
-
     const project = allProjects.find(p => p._id === id);
-
     if (!project) return;
-
     document.getElementById("title").value = project.title;
-
     document.getElementById("description").value = project.description;
-
     document.getElementById("existingImage").value = project.image;
-
     document.getElementById("technologies").value = project.technologies.join(", ");
-
     document.getElementById("demoLink").value = project.demoLink;
-
     document.getElementById("githubLink").value = project.githubLink;
-
     editingProjectId = id;
-
     projectForm.style.display = "grid";
-
     addProjectBtn.innerHTML =
         '<i class="fa-solid fa-pen"></i> Editing Project';
-
     window.scrollTo({
-
         top: 0,
-
         behavior: "smooth"
-
     });
-
 }
 
 // =========================

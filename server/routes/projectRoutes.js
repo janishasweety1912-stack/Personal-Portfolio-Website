@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../config/multer");
+const upload = require("../middleware/upload");
 const Project = require("../models/Project");
 const authMiddleware = require("../middleware/authMiddleware");
 
@@ -76,25 +76,19 @@ router.put("/:id", authMiddleware, async (req,res)=>{
 });
 
 // Upload Project Image
-router.post("/upload", upload.single("image"), (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({
-                success: false,
-                message: "No image uploaded"
+router.post("/upload", upload.single("image"),
+    async(req,res)=>{
+        try{
+            res.status(200).json({
+                image:req.file.path
             });
         }
-        res.json({
-            success: true,
-            image: `uploads/${req.file.filename}`
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+        catch(error){
+            res.status(500).json({
+                message:error.message
+            });
+        }
     }
-});
+);
 
 module.exports = router;
