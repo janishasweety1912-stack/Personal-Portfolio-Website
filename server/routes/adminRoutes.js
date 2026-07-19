@@ -93,10 +93,7 @@ router.get("/profile", auth, async (req, res) => {
 // UPLOAD PROFILE IMAGE
 // ======================
 
-router.post(
-    "/upload-profile",
-    auth,
-    upload.single("profileImage"),
+router.post("/upload-profile", auth, upload.single("profileImage"),
     async (req, res) => {
 
         try {

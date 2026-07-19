@@ -19,12 +19,15 @@ const loginAdmin = async (req, res) => {
                 message: "Invalid Username or Email"
             });
         }
+        console.log("Entered password:", password);
+        console.log("Stored hash:", admin.password);
 
         const isMatch = await bcrypt.compare(
             password,
             admin.password
         );
 
+        console.log("Match result:", isMatch);
         if (!isMatch) {
             return res.status(401).json({
                 success: false,

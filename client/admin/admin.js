@@ -579,7 +579,7 @@ async function deleteProject(id) {
     });
 
     if (!result.isConfirmed) return;
-
+    console.log("TOKEN:", token);
     // Get the latest token every time
     const token = localStorage.getItem("token");
 
